@@ -41,9 +41,19 @@ int16_t Weather::GetScale(const ReturnVals & vals) const
 {
 	if (!vals.valid)
 		return 100;
-	const int humid_factor = NEUTRAL_HUMIDITY - (vals.maxhumidity + vals.minhumidity) / 2;
-	const int temp_factor = (vals.meantempi - 70) * 4;
-	const int rain_factor = (vals.precipi + vals.precip_today) * -2;
+	// const int humid_factor = NEUTRAL_HUMIDITY - (vals.maxhumidity + vals.minhumidity) / 2;
+	// const int temp_factor = (vals.meantempi - 70) * 4;
+	// const int rain_factor = (vals.precipi + vals.precip_today) * -2;
+
+   // Damian settings
+   	const int humid_factor = 0;                                        // ignore humedity
+	const int temp_factor  = (vals.meantempi - 50) * 4;                // Temperatura promedio durante todo el dia:
+                                                                       // Eg.:  10C (50F)           -> factor will be 100%
+                                                                       //       38C (100F)          -> factor will be 200% 
+	const int rain_factor  = (vals.precipi + vals.precip_today) * -10; // Eg.:  5 mm in last 2 days -> factor will be  50 %
+                                                                       //      10 mm in last 2 days -> factor will be   0 %
+	trace(F("Damian workaround settings (see Weather.cpp)\n"));
+
 	const int16_t adj = (uint16_t)spi_min(spi_max(0, 100+humid_factor+temp_factor+rain_factor), 200);
 	trace(F("Adjusting H(%d)T(%d)R(%d):%d\n"), humid_factor, temp_factor, rain_factor, adj);
 	return adj;
