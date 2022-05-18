@@ -6,7 +6,7 @@
 #define SPRINKLERS_PI_CONFIG_H
 
 // Uncomment to display times in 24H format
-//#define CLOCK_24H 1
+#define CLOCK_24H 1
 
 // Uncomment to use GreenIQ V2 board
 //#define GREENIQ 1
