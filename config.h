@@ -30,7 +30,7 @@
  *************************************************/
 
 // Open Weather https://openweathermap.org/darksky-openweather
-//#define WEATHER_OPENWEATHER
+#define WEATHER_OPENWEATHER
 
 // Aeris Weather https://www.aerisweather.com
 //#define WEATHER_AERIS
