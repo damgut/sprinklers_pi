@@ -13,13 +13,15 @@
 
 // max number of schedules you will be allowed to create
 #define MAX_SCHEDULES 10
-#ifdef GREENIQ
-// maximum number of zones allowed
-#define NUM_ZONES 6
-#else
-// maximum number of zones allowed
-#define NUM_ZONES 15
-#endif
+// #ifdef GREENIQ
+// // maximum number of zones allowed
+// #define NUM_ZONES 6
+// #else
+// // maximum number of zones allowed
+// #define NUM_ZONES 15
+// #endif
+
+#define NUM_ZONES 4
 
 // Uncomment the next line if you want schedules to turn off when you use manual control
 //#define DISABLE_SCHED_ON_MANUAL
