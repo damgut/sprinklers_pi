@@ -47,7 +47,7 @@ int16_t Weather::GetScale(const ReturnVals & vals) const
 
 	// Damian settings
 	trace(F("Damian workaround settings (see Weather.cpp)\n"));
-   	const int humid_factor = 0;                                        // ignore humedity
+	const int humid_factor = 0;                                        // ignore humedity
 	const int meantempi_celcius  = (vals.meantempi-32)*5/9;
 	const int precipi_mm         = vals.precipi*254/100;
 	const int precip_today_mm    = vals.precip_today*254/100;
