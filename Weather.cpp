@@ -45,15 +45,15 @@ int16_t Weather::GetScale(const ReturnVals & vals) const
 	// const int temp_factor = (vals.meantempi - 70) * 4;
 	// const int rain_factor = (vals.precipi + vals.precip_today) * -2;
 
-    // Damian settings
+	// Damian settings
 	trace(F("Damian workaround settings (see Weather.cpp)\n"));
    	const int humid_factor = 0;                                        // ignore humedity
-    const int meantempi_celcius  = (vals.meantempi-32)*5/9;
-    const int precipi_mm         = vals.precipi*254/100;
-    const int precip_today_mm    = vals.precip_today*254/100;
+	const int meantempi_celcius  = (vals.meantempi-32)*5/9;
+	const int precipi_mm         = vals.precipi*254/100;
+	const int precip_today_mm    = vals.precip_today*254/100;
 
 	trace(F("Temperature: Eg.:  15 C (or less) -> factor 100%\n"));
-    trace(F("                   25 C (or more) -> factor 200%\n"));
+	trace(F("                   25 C (or more) -> factor 200%\n"));
 	const int temp_factor  = (meantempi_celcius - 15) * 10;
 
 	trace(F("Rain:        Eg.:  2 mm           -> factor -80%\n"));
