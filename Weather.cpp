@@ -45,19 +45,27 @@ int16_t Weather::GetScale(const ReturnVals & vals) const
 	// const int temp_factor = (vals.meantempi - 70) * 4;
 	// const int rain_factor = (vals.precipi + vals.precip_today) * -2;
 
-   // Damian settings
-   	const int humid_factor = 0;                                        // ignore humedity
-	const int temp_factor  = (vals.meantempi - 50) * 4;                // average temperature in Fahrenheit
-                                                                       // Eg.:  10C (50F)           -> factor will be 100%
-                                                                       //       38C (100F)          -> factor will be 200% 
-	const int rain_factor  = (vals.precipi + vals.precip_today) * -5;  // rain in 10 x inches, eg: 0,1 inches (2,5 mm) = 10
-                                                                       // Eg.:  10 (2,5 mm in last 2 days -> factor will be  50%
-                                                                       //       20 (5   mm in last 2 days -> factor will be   0%
+    // Damian settings
 	trace(F("Damian workaround settings (see Weather.cpp)\n"));
-	trace(F("Mean temp [F]: %d, rain [inch*10]: %d, rain today [inch*10]: %d\n"), vals.meantempi, vals.precipi, vals.precip_today);
+   	const int humid_factor = 0;                                        // ignore humedity
+    const int meantempi_celcius  = (vals.meantempi-32)*5/9;
+    const int precipi_mm         = vals.precipi*254/100;
+    const int precip_today_mm    = vals.precip_today*254/100;
+
+	trace(F("Temperature: Eg.:  15 C (or less) -> factor 100%\n"));
+    trace(F("                   25 C (or more) -> factor 200%\n"));
+	const int temp_factor  = (meantempi_celcius - 15) * 10;
+
+	trace(F("Rain:        Eg.:  2 mm           -> factor -80%\n"));
+	trace(F("                   3 mm           -> factor -100%\n"));
+	const int rain_factor  = (precipi_mm + precip_today_mm) * -4;
+
+	trace(F("Mean temp: %d F, rain yesterday: %d (inch*10), rain today: %d (inch*10)\n"), vals.meantempi,    vals.precipi, vals.precip_today);
+	trace(F("Mean temp: %d C, rain yesterday: %d (mm*10),   rain today: %d (mm*10)\n"),   meantempi_celcius, precipi_mm,   precip_today_mm);
 
 	const int16_t adj = (uint16_t)spi_min(spi_max(0, 100+humid_factor+temp_factor+rain_factor), 200);
-	trace(F("Adjusting H(%d) T(%d) R(%d) Total: %d%\n"), humid_factor, temp_factor, rain_factor, adj);
+	trace(F("Adjusting T(%d) R(%d) Total: %d%\n"), temp_factor, rain_factor, adj);
+
 	return adj;
 }
 
