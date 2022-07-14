@@ -52,9 +52,17 @@ int16_t Weather::GetScale(const ReturnVals & vals) const
 	const int precipi_mm         = vals.precipi*254/100;
 	const int precip_today_mm    = vals.precip_today*254/100;
 
-	trace(F("Temperature: Eg.:  15 C (or less) -> factor 100%\n"));
-	trace(F("                   25 C (or more) -> factor 200%\n"));
-	const int temp_factor  = (meantempi_celcius - 15) * 10;
+	trace(F("Temperature: Eg.:  20 C (or less) -> factor +   0%\n"));
+	trace(F("                   30 C (or more) -> factor + 100%\n"));
+	int temp_factor  = (meantempi_celcius - 20) * 10;
+    if(temp_factor < 0)
+    {
+        temp_factor = 0;
+    }
+    if(temp_factor > 100)
+    {
+        temp_factor = 100; 
+    }
 
 	trace(F("Rain:        Eg.:  2 mm           -> factor -80%\n"));
 	trace(F("                   3 mm           -> factor -100%\n"));
