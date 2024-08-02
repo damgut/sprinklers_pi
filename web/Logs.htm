@@ -150,7 +150,9 @@
               for (var j=0; j<data.logs[i].entries.length; j++) {
                 var entry = data.logs[i].entries[j];
                 var dt = new Date(entry.date*1000);
-                var datetimestr = pad(dt.getUTCHours(),2) + ':' + pad(dt.getUTCMinutes(),2) + ':' + pad(dt.getUTCSeconds(),2) + ' ' + pad(dt.getUTCFullYear(),4) + '/' + pad(dt.getUTCMonth()+1,2) + '/' + pad(dt.getUTCDate(),2);
+
+                //var datetimestr = pad(dt.getUTCHours(),2) + ':' + pad(dt.getUTCMinutes(),2) + ':' + pad(dt.getUTCSeconds(),2) + ' ' + pad(dt.getUTCFullYear(),4) + '/' + pad(dt.getUTCMonth()+1,2) + '/' + pad(dt.getUTCDate(),2);
+                var datetimestr = pad(dt.getUTCFullYear(),4) + '-' + pad(dt.getUTCMonth()+1,2) + '-' + pad(dt.getUTCDate(),2) + ' ' + pad(dt.getUTCHours(),2) + ':' + pad(dt.getUTCMinutes(),2) + ':' + pad(dt.getUTCSeconds(),2)
 
                 tbl_html += "<tr><td>" + datetimestr + "</td>";
                 tbl_html += "<td>" + Math.floor(entry.duration/60) + ":" + pad(entry.duration%60,2) + "</td>";
